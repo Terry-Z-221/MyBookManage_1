@@ -2,6 +2,7 @@ package cn.jnu.edu.mybookmanage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,14 +15,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Button button_add = findViewById(R.id.Button_Add);
-//
-//        button_add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        Button btn_add = (Button)findViewById(R.id.btn_add);
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,AddBookActivity.class);
+                startActivity(i);
+            }
+        });
         //java匿名类
     }
 }
