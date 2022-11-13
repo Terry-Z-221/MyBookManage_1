@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyBookManage</string>
+    <string name="Button_Add">+</string>
+    <string name="Book_name">Name</string>
+    <string name="Book_Author">Author</string>
+    <string name="Book_Translator">Translator</string>
+    <string name="Book_Publisher">Publisher</string>
+    <string name="Book_PubDate">PubDate</string>
+    <string name="Book_ISBN">ISBN</string>
+    <string name="Book_detail">Detail：</string>
+</resources>
