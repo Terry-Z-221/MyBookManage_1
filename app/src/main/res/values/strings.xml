@@ -7,5 +7,25 @@
     <string name="Book_Publisher">Publisher</string>
     <string name="Book_PubDate">PubDate</string>
     <string name="Book_ISBN">ISBN</string>
-    <string name="Book_detail">Detail：</string>
+
+    <string name="Book_name_hint">Name 0f the book</string>
+    <string name="Book_Author_hint">Author 0f the book</string>
+    <string name="Book_Translator_hint">Translator of the book</string>
+    <string name="Book_Publisher_hint">Publisher 0f the book</string>
+    <string name="Book_PubDate_hint">PubDate of the book</string>
+    <string name="Book_ISBN_hint">ISBN 0f the book</string>
+
+    <string name="Book_detail">DETAILS：</string>
+    <string name="Book_cover">Book-cover</string>
+    <string name="Book_text_shelf">Please choose a shilf</string>
+    <string name="Book_text_notes">Here you can add book notes</string>
+    <string name="Book_text_tags">Here you can add book tags</string>
+
+    <string-array name="Book_shelf">
+        <item>Reading</item>
+        <item>To_be_read</item>
+        <item>Finish_reading</item>
+    </string-array>
+
+
 </resources>
