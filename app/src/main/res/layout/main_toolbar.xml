@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_main_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:background="@color/pink">
+
+    <ImageButton
+        android:id="@+id/btn_bookshelf_main"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_bookshelf_24"
+        android:backgroundTint="@color/pink">
+    </ImageButton>
+
+    <Spinner
+        android:layout_gravity="center"
+        android:id="@+id/spinner_main_shelf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:spinnerMode="dropdown"
+        android:entries="@array/Book_shelf_main"
+        style="@style/Widget.AppCompat.Spinner.Underlined">
+    </Spinner>
+
+    <ImageButton
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_search"
+        android:backgroundTint="@color/pink"
+        android:src="@drawable/search">
+
+    </ImageButton>
+
+</LinearLayout>
