@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".AddBookActivity">
 
+    <include layout="@layout/edit_book_detail_toolbar">
+
+    </include>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -180,7 +184,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="5dp">
 
@@ -220,7 +224,7 @@
                 android:spinnerMode="dropdown"
                 android:layout_marginStart="70dp"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:entries="@array/Book_shelf">
+                android:entries="@array/Book_shelf_edit">
             </Spinner>
         </LinearLayout>
 
@@ -253,7 +257,7 @@
                 android:spinnerMode="dropdown"
                 android:layout_marginStart="60dp"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:entries="@array/Book_shelf">
+                android:entries="@array/Book_shelf_edit">
             </Spinner>
         </LinearLayout>
 

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MyBookManage</string>
-    <string name="Button_Add">+</string>
+    <string name="add">+</string>
     <string name="Book_name">Name</string>
     <string name="Book_Author">Author</string>
     <string name="Book_Translator">Translator</string>
@@ -20,8 +20,18 @@
     <string name="Book_text_shelf">Please choose a shilf</string>
     <string name="Book_text_notes">Here you can add book notes</string>
     <string name="Book_text_tags">Here you can add book tags</string>
+    <string name="save">Save</string>
+    <string name="edit_book_details">Edit book details</string>
+    <string name="all">All</string>
 
-    <string-array name="Book_shelf">
+    <string-array name="Book_shelf_edit">
+        <item>Reading</item>
+        <item>To_be_read</item>
+        <item>Finish_reading</item>
+    </string-array>
+
+    <string-array name="Book_shelf_main">
+        <item>All</item>
         <item>Reading</item>
         <item>To_be_read</item>
         <item>Finish_reading</item>
