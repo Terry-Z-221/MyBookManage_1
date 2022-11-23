@@ -1,5 +1,8 @@
 package cn.jnu.edu.mybookmanage;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,7 +25,27 @@ import cn.jnu.edu.mybookmanage.data_Book.book_item;
 public class MainActivity extends AppCompatActivity {
 
 
+    private MainRecycleViewAdapter mainRecycleViewAdapter;
     private ArrayList<book_item> book_items;
+
+    private ActivityResultLauncher<Intent> add_data_launcher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
+                    ,result -> {
+                if(null != result){
+                    Intent intent = result.getData();
+                    if(result.getResultCode() == 1)
+                    {
+                        Bundle bundle = intent.getExtras();
+                        String name = bundle.getString("name");
+                        String author = bundle.getString("author");
+                        String publisher = bundle.getString("publisher");
+                        String pubdate = bundle.getString("pubdate");
+                        book_items.add(0,new book_item(name,author,publisher,pubdate,R.drawable.ic_baseline_booknotes_24));
+                        mainRecycleViewAdapter.notifyItemInserted(0);
+                    }
+                }
+                    });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         Button btn_add = (Button)findViewById(R.id.btn_add); // 主页面添加书籍信息按钮
 
         btn_add.setOnClickListener(view -> {
-            Intent i = new Intent(MainActivity.this,AddBookActivity.class); // 跳转页面至添加信息页面
-            startActivity(i);
+            Intent intent = new Intent(MainActivity.this,AddBookActivity.class); // 跳转页面至添加信息页面
+            add_data_launcher.launch(intent);
         });
 
         RecyclerView recyclerView_item = findViewById(R.id.recycleview_item_main);
@@ -46,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             book_items.add(new book_item("活着","余华" + " 著","北京出版社","1994.03",R.drawable.ic_baseline_booknotes_24));
         }
 
-        MainRecycleViewAdapter mainRecycleViewAdapter = new MainRecycleViewAdapter(book_items);
+        mainRecycleViewAdapter = new MainRecycleViewAdapter(book_items);
         recyclerView_item.setAdapter(mainRecycleViewAdapter);
 
     }

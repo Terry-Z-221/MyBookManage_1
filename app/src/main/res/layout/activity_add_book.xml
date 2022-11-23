@@ -219,6 +219,7 @@
             </TextView>
 
             <Spinner
+                android:id="@+id/spinner_choose_shelf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
@@ -247,7 +248,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Please choose a shilf"
+                android:text="@string/please_choose_a_shilf"
                 android:textSize="15sp">
             </TextView>
 
@@ -285,9 +286,10 @@
             </TextView>
 
             <EditText
+                android:id="@+id/edit_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="notes"
+                android:hint="@string/notes"
                 android:layout_marginStart="10dp">
             </EditText>
 
@@ -317,9 +319,10 @@
             </TextView>
 
             <EditText
+                android:id="@+id/edit_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="tags"
+                android:hint="@string/tags"
                 android:layout_marginStart="17dp">
             </EditText>
 

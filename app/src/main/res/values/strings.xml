@@ -23,6 +23,9 @@
     <string name="save">Save</string>
     <string name="edit_book_details">Edit book details</string>
     <string name="all">All</string>
+    <string name="please_choose_a_shilf">Please choose a shilf</string>
+    <string name="notes">notes</string>
+    <string name="tags">tags</string>
 
     <string-array name="Book_shelf_edit">
         <item>Reading</item>
