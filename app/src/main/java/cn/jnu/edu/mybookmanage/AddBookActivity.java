@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 public class AddBookActivity extends AppCompatActivity {
@@ -26,6 +27,8 @@ public class AddBookActivity extends AppCompatActivity {
 
 
         Button button_save = findViewById(R.id.btn_save);
+        ImageButton imageButton_back = findViewById(R.id.btn_back_edit_book);
+
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +41,13 @@ public class AddBookActivity extends AppCompatActivity {
 
                 intent.putExtras(bundle);
                 setResult(Integer.parseInt("1"),intent);
+                AddBookActivity.this.finish();
+            }
+        });
+
+        imageButton_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 AddBookActivity.this.finish();
             }
         });

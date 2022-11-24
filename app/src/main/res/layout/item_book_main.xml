@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="50dp"
+    android:background="@color/gray">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +26,7 @@
                 android:textSize="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_marginStart="20dp">
             </TextView>
 
@@ -54,11 +56,17 @@
                     android:layout_marginStart="80dp">
                 </TextView>
 
+
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/black">
+    </View>
 </FrameLayout>

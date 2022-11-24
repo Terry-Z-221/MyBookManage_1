@@ -1,6 +1,13 @@
 package cn.jnu.edu.mybookmanage.data_Book;
 
 public class book_item {
+
+    private String Name;
+    private String Author;
+    private String Publisher;
+    private String Pubdate;
+    private int resId;
+
     public book_item(String name, String author, String publisher, String pubdate, int resId) {
         Name = name;
         Author = author;
@@ -49,9 +56,4 @@ public class book_item {
         this.resId = resId;
     }
 
-    private String Name;
-    private String Author;
-    private String Publisher;
-    private String Pubdate;
-    private int resId;
 }

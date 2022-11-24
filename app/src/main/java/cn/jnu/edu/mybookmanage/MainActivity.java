@@ -65,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView_item.setLayoutManager(linearLayoutManager);
 
         book_items = new ArrayList<>();
-        for (int i = 0; i < 100; i++)
-        {
-            book_items.add(new book_item("活着","余华" + " 著","北京出版社","1994.03",R.drawable.ic_baseline_booknotes_24));
-        }
 
         mainRecycleViewAdapter = new MainRecycleViewAdapter(book_items);
         recyclerView_item.setAdapter(mainRecycleViewAdapter);
