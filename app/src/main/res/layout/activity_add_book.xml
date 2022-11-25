@@ -219,7 +219,7 @@
             </TextView>
 
             <Spinner
-                android:id="@+id/spinner_choose_shelf"
+                android:id="@+id/spinner_reading_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
@@ -253,6 +253,7 @@
             </TextView>
 
             <Spinner
+                android:id="@+id/spinner_choose_shelf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"

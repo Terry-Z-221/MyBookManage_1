@@ -4,17 +4,23 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,25 +31,74 @@ import cn.jnu.edu.mybookmanage.data_Book.book_item;
 public class MainActivity extends AppCompatActivity {
 
 
+    public static final int MENU_ID_ADD = 1;
+    public static final int MENU_ID_UPDATE = 2;
+    public static final int MENU_ID_DELETE = 3;
     private MainRecycleViewAdapter mainRecycleViewAdapter;
     private ArrayList<book_item> book_items;
 
-    private ActivityResultLauncher<Intent> add_data_launcher =
+    private final ActivityResultLauncher<Intent> add_data_launcher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
                     ,result -> {
                 if(null != result){
                     Intent intent = result.getData();
                     if(result.getResultCode() == 1)
                     {
+                        assert intent != null;
                         Bundle bundle = intent.getExtras();
+                        int position = bundle.getInt("position");
                         String name = bundle.getString("name");
                         String author = bundle.getString("author");
+                        String translator = bundle.getString("translator");
                         String publisher = bundle.getString("publisher");
                         String pubdate = bundle.getString("pubdate");
-                        book_items.add(0,new book_item(name,author,publisher,pubdate,R.drawable.ic_baseline_booknotes_24));
+                        String isbn = bundle.getString("isbn");
+                        String reading_status = bundle.getString("reading_status");
+                        String shelf = bundle.getString("shelf");
+                        String notes = bundle.getString("notes");
+                        String tags = bundle.getString("tags");
+                        book_items.add(0, new book_item(name, author, translator, publisher, pubdate, isbn,
+                                reading_status, shelf, notes, tags, R.drawable.ic_baseline_booknotes_24));
                         mainRecycleViewAdapter.notifyItemInserted(0);
                     }
                 }
+                    });
+
+    private final ActivityResultLauncher<Intent> update_data_launcher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
+                    ,result -> {
+                        if(null != result){
+                            Intent intent = result.getData();
+                            if(result.getResultCode() == 1)
+                            {
+                                assert intent != null;
+                                Bundle bundle = intent.getExtras();
+                                int posiotion = bundle.getInt("position");
+                                String name = bundle.getString("name");
+                                String author = bundle.getString("author");
+                                String translator = bundle.getString("translator");
+                                String publisher = bundle.getString("publisher");
+                                String pubdate = bundle.getString("pubdate");
+                                String isbn = bundle.getString("isbn");
+//                                String reading_status = bundle.getString("reading_status");
+//                                String shelf = bundle.getString("shelf");
+                                String notes = bundle.getString("notes");
+                                String tags = bundle.getString("tags");
+
+                                book_items.get(posiotion).setName(name);
+                                book_items.get(posiotion).setAuthor(author);
+                                book_items.get(posiotion).setTranslator(translator);
+                                book_items.get(posiotion).setPublisher(publisher);
+                                book_items.get(posiotion).setPubdate(pubdate);
+                                book_items.get(posiotion).setISBN(isbn);
+//                                book_items.get(posiotion).setReading_status(reading_status);
+//                                book_items.get(posiotion).setShelf(shelf);
+                                book_items.get(posiotion).setNotes(notes);
+                                book_items.get(posiotion).setTags(tags);
+
+                                mainRecycleViewAdapter.notifyItemChanged(0);
+                            }
+                        }
                     });
 
     @Override
@@ -51,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn_add = (Button)findViewById(R.id.btn_add); // 主页面添加书籍信息按钮
+        Button btn_add = findViewById(R.id.btn_add); // 主页面添加书籍信息按钮
 
         btn_add.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this,AddBookActivity.class); // 跳转页面至添加信息页面
@@ -71,15 +126,51 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case MENU_ID_ADD:
+                Intent intent_add = new Intent(this,AddBookActivity.class);
+                add_data_launcher.launch(intent_add);
+                break;
+            case MENU_ID_UPDATE:
+                Intent intent_update = new Intent(this,AddBookActivity.class);
+                intent_update.putExtra("name",book_items.get(item.getOrder()).getName());
+                intent_update.putExtra("author",book_items.get(item.getOrder()).getAuthor());
+                intent_update.putExtra("translator",book_items.get(item.getOrder()).getTranslator());
+                intent_update.putExtra("publisher",book_items.get(item.getOrder()).getPublisher());
+                intent_update.putExtra("pubdate",book_items.get(item.getOrder()).getPubdate());
+                intent_update.putExtra("isbn",book_items.get(item.getOrder()).getISBN());
+                intent_update.putExtra("reading_status",book_items.get(item.getOrder()).getReading_status());
+                intent_update.putExtra("shelf",book_items.get(item.getOrder()).getShelf());
+                intent_update.putExtra("notes",book_items.get(item.getOrder()).getNotes());
+                intent_update.putExtra("tags",book_items.get(item.getOrder()).getTags());
+                update_data_launcher.launch(intent_update);
+                break;
+            case MENU_ID_DELETE:
+                AlertDialog alertDialog = new AlertDialog.Builder(this)
+                        .setTitle(R.string.MENU_Confirmation).setMessage(R.string.MENU_delete_to_sure)
+                        .setNegativeButton(R.string.YES, (dialogInterface, i) -> {
+                            book_items.remove(item.getOrder());
+                            mainRecycleViewAdapter.notifyItemRemoved(item.getOrder());
+                        }).setPositiveButton(R.string.NO, (dialogInterface, i) -> {
+                        }).create();
+                alertDialog.show();
+                break;
+        }
+        return super.onContextItemSelected(item);
+    }
+
     public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> {
 
-        private ArrayList<book_item> localDataSet;
+        private final ArrayList<book_item> localDataSet;
 
         /**
          * Provide a reference to the type of views that you are using
          * (custom ViewHolder).
          */
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
             private final TextView textView_name;
             private final TextView textView_author;
             private final TextView textView_publisher;
@@ -96,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 textView_pubdate = view.findViewById(R.id.text_view_item_pubdate);
                 imageView = view.findViewById(R.id.image_view_item);
 
+                view.setOnCreateContextMenuListener(this); // 长按item出现菜单
             }
 
 
@@ -117,6 +209,13 @@ public class MainActivity extends AppCompatActivity {
 
             public TextView getTextView_pubdate() {
                 return textView_pubdate;
+            }
+
+            @Override
+            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                contextMenu.add(0,MENU_ID_ADD,getAdapterPosition(),"Add new Book details");
+                contextMenu.add(0,MENU_ID_UPDATE,getAdapterPosition(),"Update this Book's details");
+                contextMenu.add(0,MENU_ID_DELETE,getAdapterPosition(),"Delete this Book");
             }
         }
 

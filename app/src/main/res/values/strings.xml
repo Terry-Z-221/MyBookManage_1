@@ -40,5 +40,9 @@
         <item>Finish_reading</item>
     </string-array>
 
+    <string name="MENU_Confirmation">Confirmation</string>
+    <string name="MENU_delete_to_sure">Are you sure to delete this Book？</string>
+    <string name="YES">YES</string>
+    <string name="NO">NO</string>
 
 </resources>
