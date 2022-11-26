@@ -1,9 +1,10 @@
 package cn.jnu.edu.mybookmanage.data_Book;
 
-import android.widget.Spinner;
+import android.widget.ImageView;
 
 public class book_item {
 
+//    private ImageView Cover;
     private String Name;
     private String Author;
     private String Translator;
@@ -16,8 +17,11 @@ public class book_item {
     private String Tags;
     private int resId;
 
+
     public book_item(String name, String author, String translator, String publisher, String pubdate, String isbn,
                      String read_status, String shelf, String notes, String tags, int resId) {
+
+//        Cover = cover;
         Name = name;
         Author = author;
         Translator = translator;
@@ -94,4 +98,8 @@ public class book_item {
     public String getTags() {return Tags;}
 
     public void setTags(String tags) {Tags = tags;}
+
+//    public ImageView getCover() {return Cover;}
+//
+//    public void setCover(ImageView cover) {this.Cover = cover;}
 }

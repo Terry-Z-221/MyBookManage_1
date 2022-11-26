@@ -7,12 +7,17 @@
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/add_time.xml" value="0.2265" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/ic_baseline_addtime_24.xml" value="0.245" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/ic_baseline_bookshelf_24.xml" value="0.1365" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/ic_book.xml" value="0.1365" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/spinner_selector.xml" value="0.245" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/spinner_shape.xml" value="0.245" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/activity_add_book.xml" value="0.2" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/activity_book_detail_look.xml" value="0.152" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/add_book.xml" value="0.1" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/edit_book_detail_toolbar.xml" value="0.26222826086956524" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/item_book_main.xml" value="0.26222826086956524" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/look_toolbar.xml" value="0.10341880341880341" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/main_toolbar.xml" value="0.176" />
       </map>
     </option>

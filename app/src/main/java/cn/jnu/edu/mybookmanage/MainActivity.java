@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         assert intent != null;
                         Bundle bundle = intent.getExtras();
                         int position = bundle.getInt("position");
+                        int coverID = bundle.getInt("coverID");
                         String name = bundle.getString("name");
                         String author = bundle.getString("author");
                         String translator = bundle.getString("translator");
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         String notes = bundle.getString("notes");
                         String tags = bundle.getString("tags");
                         book_items.add(0, new book_item(name, author, translator, publisher, pubdate, isbn,
-                                reading_status, shelf, notes, tags, R.drawable.ic_baseline_booknotes_24));
+                                reading_status, shelf, notes, tags, R.drawable.ic_book));
                         mainRecycleViewAdapter.notifyItemInserted(0);
                     }
                 }
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 //                                String shelf = bundle.getString("shelf");
                                 String notes = bundle.getString("notes");
                                 String tags = bundle.getString("tags");
-
                                 book_items.get(posiotion).setName(name);
                                 book_items.get(posiotion).setAuthor(author);
                                 book_items.get(posiotion).setTranslator(translator);
@@ -95,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
 //                                book_items.get(posiotion).setShelf(shelf);
                                 book_items.get(posiotion).setNotes(notes);
                                 book_items.get(posiotion).setTags(tags);
-
-                                mainRecycleViewAdapter.notifyItemChanged(0);
+                                mainRecycleViewAdapter.notifyItemChanged(posiotion);
                             }
                         }
                     });
@@ -136,14 +136,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case MENU_ID_UPDATE:
                 Intent intent_update = new Intent(this,AddBookActivity.class);
+//                intent_update.putExtra("coverID",book_items.get(item.getItemId()).getResId());
                 intent_update.putExtra("name",book_items.get(item.getOrder()).getName());
                 intent_update.putExtra("author",book_items.get(item.getOrder()).getAuthor());
                 intent_update.putExtra("translator",book_items.get(item.getOrder()).getTranslator());
                 intent_update.putExtra("publisher",book_items.get(item.getOrder()).getPublisher());
                 intent_update.putExtra("pubdate",book_items.get(item.getOrder()).getPubdate());
                 intent_update.putExtra("isbn",book_items.get(item.getOrder()).getISBN());
-                intent_update.putExtra("reading_status",book_items.get(item.getOrder()).getReading_status());
-                intent_update.putExtra("shelf",book_items.get(item.getOrder()).getShelf());
+                intent_update.putExtra("reading_status",book_items.get(item.getOrder()).getReading_status().toString());
+                intent_update.putExtra("shelf",book_items.get(item.getOrder()).getShelf().toString());
                 intent_update.putExtra("notes",book_items.get(item.getOrder()).getNotes());
                 intent_update.putExtra("tags",book_items.get(item.getOrder()).getTags());
                 update_data_launcher.launch(intent_update);
@@ -159,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();
                 break;
         }
+
         return super.onContextItemSelected(item);
     }
 
@@ -188,6 +190,23 @@ public class MainActivity extends AppCompatActivity {
                 imageView = view.findViewById(R.id.image_view_item);
 
                 view.setOnCreateContextMenuListener(this); // 长按item出现菜单
+
+                view.setOnClickListener(view1 -> {
+                    Intent intent_look = new Intent(MainActivity.this,BookDetailLookActivity.class);
+                    intent_look.putExtra("coverID",book_items.get(getAdapterPosition()).getResId());
+                    intent_look.putExtra("name",book_items.get(getAdapterPosition()).getName());
+                    intent_look.putExtra("author",book_items.get(getAdapterPosition()).getAuthor());
+                    intent_look.putExtra("translator",book_items.get(getAdapterPosition()).getTranslator());
+                    intent_look.putExtra("publisher",book_items.get(getAdapterPosition()).getPublisher());
+                    intent_look.putExtra("pubdate",book_items.get(getAdapterPosition()).getPubdate());
+                    intent_look.putExtra("isbn",book_items.get(getAdapterPosition()).getISBN());
+                    intent_look.putExtra("reading_status",book_items.get(getAdapterPosition()).getReading_status());
+                    intent_look.putExtra("shelf",book_items.get(getAdapterPosition()).getShelf());
+                    intent_look.putExtra("notes",book_items.get(getAdapterPosition()).getNotes());
+                    intent_look.putExtra("tags",book_items.get(getAdapterPosition()).getTags());
+                    startActivity(intent_look);
+                });
+
             }
 
 
@@ -237,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
             View view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.item_book_main, viewGroup, false);
 
+
             return new ViewHolder(view);
         }
 
@@ -258,6 +278,8 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return localDataSet.size();
         }
+
+
     }
 
 }

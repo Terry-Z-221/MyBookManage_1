@@ -24,25 +24,47 @@
     <string name="edit_book_details">Edit book details</string>
     <string name="all">All</string>
     <string name="please_choose_a_shilf">Please choose a shilf</string>
+    <string name="decide_the_reading_status">Decide the reading status</string>
     <string name="notes">notes</string>
     <string name="tags">tags</string>
 
-    <string-array name="Book_shelf_edit">
+    <string-array name="Reading_status_edit">
         <item>Reading</item>
         <item>To_be_read</item>
         <item>Finish_reading</item>
     </string-array>
 
+    <string-array name="Book_shelf_edit">
+        <item>Novel</item>
+        <item>Magazine</item>
+        <item>Textbook</item>
+        <item>Poetry</item>
+    </string-array>
+
     <string-array name="Book_shelf_main">
         <item>All</item>
-        <item>Reading</item>
-        <item>To_be_read</item>
-        <item>Finish_reading</item>
+        <item>Novel</item>
+        <item>Magazine</item>
+        <item>Textbook</item>
+        <item>Poetry</item>
     </string-array>
 
     <string name="MENU_Confirmation">Confirmation</string>
     <string name="MENU_delete_to_sure">Are you sure to delete this Book？</string>
     <string name="YES">YES</string>
     <string name="NO">NO</string>
+    <string name="blank" />
+    <string name="book_details">Book details</string>
+    <string name="todo">TODO</string>
+    <string name="bookname">图书名称：</string>
+    <string name="zuo_zhe">作者：</string>
+    <string name="yi_zhe">译者：</string>
+    <string name="chu_ban_she">出版社：</string>
+    <string name="chu_ban_day">出版日期：</string>
+    <string name="ISBN_ma">ISBN码：</string>
+    <string name="yue_du_zhuang_tai">阅读状态：</string>
+    <string name="shu_jia">所属书架：</string>
+    <string name="bi_ji">图书笔记：</string>
+    <string name="biao_qian">图书标签：</string>
 
 </resources>

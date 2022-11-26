@@ -207,14 +207,15 @@
                 android:scaleType="center"
                 android:src="@drawable/ic_baseline_bookshelf_24"
                 android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/todo">
             </ImageView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:text="@string/Book_text_shelf"
+                android:layout_marginStart="10dp"
+                android:text="@string/decide_the_reading_status"
                 android:textSize="15sp">
             </TextView>
 
@@ -223,9 +224,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
-                android:layout_marginStart="70dp"
+                android:layout_marginStart="35dp"
+                android:dropDownSelector="@color/gray"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:entries="@array/Book_shelf_edit">
+                android:entries="@array/Reading_status_edit">
             </Spinner>
         </LinearLayout>
 
@@ -241,7 +243,8 @@
                 android:scaleType="center"
                 android:src="@drawable/ic_baseline_booknotes_24"
                 android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/todo">
             </ImageView>
 
             <TextView
@@ -275,7 +278,8 @@
                 android:scaleType="center"
                 android:src="@drawable/ic_baseline_booknotes_24"
                 android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/todo">
             </ImageView>
 
             <TextView
