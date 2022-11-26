@@ -121,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
 
         book_items = new ArrayList<>();
 
+        book_items.add(0,new book_item("白夜行","东野圭吾","刘姿君","南海出版公司","2008.09",
+                "9787544242516","Reading","Novel","无","日系推理",R.drawable.ic_book_1));
+
+        book_items.add(1,new book_item("计算机网络","谢希仁","无","电子工业出版社","2021.06",
+                "9787121411748","To be read","Textbook","无","计算机教材",R.drawable.ic_book_2));
+
         mainRecycleViewAdapter = new MainRecycleViewAdapter(book_items);
         recyclerView_item.setAdapter(mainRecycleViewAdapter);
 
@@ -137,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             case MENU_ID_UPDATE:
                 Intent intent_update = new Intent(this,AddBookActivity.class);
 //                intent_update.putExtra("coverID",book_items.get(item.getItemId()).getResId());
+                intent_update.putExtra("position",item.getOrder());
                 intent_update.putExtra("name",book_items.get(item.getOrder()).getName());
                 intent_update.putExtra("author",book_items.get(item.getOrder()).getAuthor());
                 intent_update.putExtra("translator",book_items.get(item.getOrder()).getTranslator());
