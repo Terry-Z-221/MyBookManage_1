@@ -87,7 +87,7 @@ public class AddBookActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putInt("coverID",cur_coverID);
             bundle.putString("name",editText_name.getText().toString());
-            bundle.putString("author",editText_author.getText().toString() + " 著");
+            bundle.putString("author",editText_author.getText().toString());
             bundle.putString("translator",editText_translator.getText().toString());
             bundle.putString("publisher",editText_publisher.getText().toString());
             bundle.putString("pubdate",editText_pubdate.getText().toString());
