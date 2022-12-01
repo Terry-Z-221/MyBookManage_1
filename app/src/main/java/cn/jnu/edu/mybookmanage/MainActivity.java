@@ -6,9 +6,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -20,12 +23,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import cn.jnu.edu.mybookmanage.data_Book.book_item;
 
@@ -37,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int MENU_ID_DELETE = 3;
     private MainRecycleViewAdapter mainRecycleViewAdapter;
     private ArrayList<book_item> book_items;
+    private DrawerLayout drawerLayout_main;
 
     private final ActivityResultLauncher<Intent> add_data_launcher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult()
@@ -82,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
                                 String publisher = bundle.getString("publisher");
                                 String pubdate = bundle.getString("pubdate");
                                 String isbn = bundle.getString("isbn");
-//                                String reading_status = bundle.getString("reading_status");
-//                                String shelf = bundle.getString("shelf");
+                                String reading_status = bundle.getString("reading_status");
+                                String shelf = bundle.getString("shelf");
                                 String notes = bundle.getString("notes");
                                 String tags = bundle.getString("tags");
                                 book_items.get(posiotion).setName(name);
@@ -92,10 +102,12 @@ public class MainActivity extends AppCompatActivity {
                                 book_items.get(posiotion).setPublisher(publisher);
                                 book_items.get(posiotion).setPubdate(pubdate);
                                 book_items.get(posiotion).setISBN(isbn);
-//                                book_items.get(posiotion).setReading_status(reading_status);
-//                                book_items.get(posiotion).setShelf(shelf);
                                 book_items.get(posiotion).setNotes(notes);
                                 book_items.get(posiotion).setTags(tags);
+                                book_items.get(posiotion).setShelf(shelf);
+                                book_items.get(posiotion).setReading_status(reading_status);
+
+
                                 mainRecycleViewAdapter.notifyItemChanged(posiotion);
                             }
                         }
@@ -105,6 +117,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drawerLayout_main = findViewById(R.id.drawer_layout);
+        Toolbar toolbar_main = findViewById(R.id.toolbar_main);
+        ImageButton btn_menu = findViewById(R.id.btn_menu_main);
+
+        btn_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout_main.openDrawer(GravityCompat.START);
+            }
+        });
+
 
         Button btn_add = findViewById(R.id.btn_add); // 主页面添加书籍信息按钮
 
@@ -132,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
@@ -150,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
                 intent_update.putExtra("publisher",book_items.get(item.getOrder()).getPublisher());
                 intent_update.putExtra("pubdate",book_items.get(item.getOrder()).getPubdate());
                 intent_update.putExtra("isbn",book_items.get(item.getOrder()).getISBN());
-                intent_update.putExtra("reading_status",book_items.get(item.getOrder()).getReading_status().toString());
-                intent_update.putExtra("shelf",book_items.get(item.getOrder()).getShelf().toString());
+                intent_update.putExtra("reading_status",book_items.get(item.getOrder()).getReading_status());
+                intent_update.putExtra("shelf",book_items.get(item.getOrder()).getShelf());
                 intent_update.putExtra("notes",book_items.get(item.getOrder()).getNotes());
                 intent_update.putExtra("tags",book_items.get(item.getOrder()).getTags());
                 update_data_launcher.launch(intent_update);
@@ -197,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
                 imageView = view.findViewById(R.id.image_view_item);
 
                 view.setOnCreateContextMenuListener(this); // 长按item出现菜单
+
+
 
                 view.setOnClickListener(view1 -> {
                     Intent intent_look = new Intent(MainActivity.this,BookDetailLookActivity.class);
@@ -252,7 +279,9 @@ public class MainActivity extends AppCompatActivity {
          * by RecyclerView.
          */
         public MainRecycleViewAdapter(ArrayList<book_item> dataSet) {
+
             localDataSet = dataSet;
+
         }
 
         // Create new views (invoked by the layout manager)
@@ -269,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
@@ -278,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
             viewHolder.getTextView_publisher().setText(localDataSet.get(position).getPublisher());
             viewHolder.getTextView_pubdate().setText(localDataSet.get(position).getPubdate());
             viewHolder.getImageView().setImageResource(localDataSet.get(position).getResId());
+
         }
 
         // Return the size of your dataset (invoked by the layout manager)
