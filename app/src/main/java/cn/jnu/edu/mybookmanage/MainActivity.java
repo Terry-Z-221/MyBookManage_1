@@ -15,14 +15,21 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.GnssAntennaInfo;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -34,6 +41,7 @@ import android.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import cn.jnu.edu.mybookmanage.data_Book.book_item;
@@ -113,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +163,24 @@ public class MainActivity extends AppCompatActivity {
 
         mainRecycleViewAdapter = new MainRecycleViewAdapter(book_items);
         recyclerView_item.setAdapter(mainRecycleViewAdapter);
+
+        EditText search = findViewById(R.id.edit_search);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mainRecycleViewAdapter.getFilter().filter(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
     }
 
@@ -196,9 +224,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> {
+    public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> implements Filterable {
 
         private final ArrayList<book_item> localDataSet;
+        private ArrayList<book_item> filterDataSet;
+
 
         /**
          * Provide a reference to the type of views that you are using
@@ -281,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
         public MainRecycleViewAdapter(ArrayList<book_item> dataSet) {
 
             localDataSet = dataSet;
-
+            filterDataSet = localDataSet;
         }
 
         // Create new views (invoked by the layout manager)
@@ -302,21 +332,55 @@ public class MainActivity extends AppCompatActivity {
 
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
-            viewHolder.getTextView_name().setText(localDataSet.get(position).getName());
-            viewHolder.getTextView_author().setText(localDataSet.get(position).getAuthor());
-            viewHolder.getTextView_publisher().setText(localDataSet.get(position).getPublisher());
-            viewHolder.getTextView_pubdate().setText(localDataSet.get(position).getPubdate());
-            viewHolder.getImageView().setImageResource(localDataSet.get(position).getResId());
+            viewHolder.getTextView_name().setText(filterDataSet.get(position).getName());
+            viewHolder.getTextView_author().setText(filterDataSet.get(position).getAuthor());
+            viewHolder.getTextView_publisher().setText(filterDataSet.get(position).getPublisher());
+            viewHolder.getTextView_pubdate().setText(filterDataSet.get(position).getPubdate());
+            viewHolder.getImageView().setImageResource(filterDataSet.get(position).getResId());
 
         }
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return localDataSet.size();
+            return filterDataSet.size();
+        }
+
+        @Override
+        public Filter getFilter() {
+
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence charSequence) {
+                    String name_cur = charSequence.toString();
+                    if(name_cur.isEmpty()) filterDataSet = localDataSet;
+                    else{
+                        ArrayList<book_item> filterDataList = new ArrayList<>();
+
+                        for (int i = 0; i < localDataSet.size(); i++) {
+                            if(localDataSet.get(i).getName().contains(name_cur))
+                                filterDataList.add(localDataSet.get(i));
+                        }
+                        filterDataSet = filterDataList;
+                    }
+
+                    FilterResults filterResults = new FilterResults();
+                    filterResults.values = filterDataSet;
+                    return filterResults;
+                }
+
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                    filterDataSet = (ArrayList<book_item>) filterResults.values;
+                    notifyDataSetChanged();
+                }
+            };
         }
 
 
     }
+
+
 
 }

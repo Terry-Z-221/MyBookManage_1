@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:src="@drawable/ic_baseline_bookshelf_24"
         android:backgroundTint="@color/pink"
-        android:contentDescription="TODO">
+        android:contentDescription="@string/todo">
     </ImageButton>
 
     <Spinner
@@ -23,15 +23,15 @@
         style="@style/Widget.AppCompat.Spinner.Underlined">
     </Spinner>
 
-    <ImageButton
-        android:layout_marginStart="40dp"
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_marginStart="10dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_search"
-        android:backgroundTint="@color/pink"
-        android:src="@drawable/search"
-        android:contentDescription="TODO">
-
-    </ImageButton>
+        android:id="@+id/edit_search"
+        android:drawableStart="@drawable/search"
+        android:autofillHints=""
+        android:hint="@string/search"
+        android:textStyle="bold">
+    </EditText>
 
 </androidx.appcompat.widget.Toolbar>
