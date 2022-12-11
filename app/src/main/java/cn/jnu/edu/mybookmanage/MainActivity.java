@@ -132,12 +132,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar_main = findViewById(R.id.toolbar_main);
         ImageButton btn_menu = findViewById(R.id.btn_menu_main);
 
-        btn_menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout_main.openDrawer(GravityCompat.START);
-            }
-        });
+        btn_menu.setOnClickListener(view -> drawerLayout_main.openDrawer(GravityCompat.START));
 
 
         Button btn_add = findViewById(R.id.btn_add); // 主页面添加书籍信息按钮
@@ -165,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView_item.setAdapter(mainRecycleViewAdapter);
 
         EditText search = findViewById(R.id.edit_search);
+
+
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -181,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 
@@ -228,7 +226,9 @@ public class MainActivity extends AppCompatActivity {
 
         private final ArrayList<book_item> localDataSet;
         private ArrayList<book_item> filterDataSet;
+        private ArrayList<book_item> OriDataSet;
 
+//        Spinner shelf_main = findViewById(R.id.spinner_main_shelf);
 
         /**
          * Provide a reference to the type of views that you are using
@@ -253,21 +253,19 @@ public class MainActivity extends AppCompatActivity {
 
                 view.setOnCreateContextMenuListener(this); // 长按item出现菜单
 
-
-
                 view.setOnClickListener(view1 -> {
                     Intent intent_look = new Intent(MainActivity.this,BookDetailLookActivity.class);
-                    intent_look.putExtra("coverID",book_items.get(getAdapterPosition()).getResId());
-                    intent_look.putExtra("name",book_items.get(getAdapterPosition()).getName());
-                    intent_look.putExtra("author",book_items.get(getAdapterPosition()).getAuthor());
-                    intent_look.putExtra("translator",book_items.get(getAdapterPosition()).getTranslator());
-                    intent_look.putExtra("publisher",book_items.get(getAdapterPosition()).getPublisher());
-                    intent_look.putExtra("pubdate",book_items.get(getAdapterPosition()).getPubdate());
-                    intent_look.putExtra("isbn",book_items.get(getAdapterPosition()).getISBN());
-                    intent_look.putExtra("reading_status",book_items.get(getAdapterPosition()).getReading_status());
-                    intent_look.putExtra("shelf",book_items.get(getAdapterPosition()).getShelf());
-                    intent_look.putExtra("notes",book_items.get(getAdapterPosition()).getNotes());
-                    intent_look.putExtra("tags",book_items.get(getAdapterPosition()).getTags());
+                    intent_look.putExtra("coverID",filterDataSet.get(getAdapterPosition()).getResId());
+                    intent_look.putExtra("name",filterDataSet.get(getAdapterPosition()).getName());
+                    intent_look.putExtra("author",filterDataSet.get(getAdapterPosition()).getAuthor());
+                    intent_look.putExtra("translator",filterDataSet.get(getAdapterPosition()).getTranslator());
+                    intent_look.putExtra("publisher",filterDataSet.get(getAdapterPosition()).getPublisher());
+                    intent_look.putExtra("pubdate",filterDataSet.get(getAdapterPosition()).getPubdate());
+                    intent_look.putExtra("isbn",filterDataSet.get(getAdapterPosition()).getISBN());
+                    intent_look.putExtra("reading_status",filterDataSet.get(getAdapterPosition()).getReading_status());
+                    intent_look.putExtra("shelf",filterDataSet.get(getAdapterPosition()).getShelf());
+                    intent_look.putExtra("notes",filterDataSet.get(getAdapterPosition()).getNotes());
+                    intent_look.putExtra("tags",filterDataSet.get(getAdapterPosition()).getTags());
                     startActivity(intent_look);
                 });
 
@@ -308,10 +306,40 @@ public class MainActivity extends AppCompatActivity {
          * @param dataSet String[] containing the data to populate views to be used
          * by RecyclerView.
          */
+        @SuppressLint("NotifyDataSetChanged")
         public MainRecycleViewAdapter(ArrayList<book_item> dataSet) {
 
+            notifyDataSetChanged();
             localDataSet = dataSet;
             filterDataSet = localDataSet;
+            Spinner shelf = findViewById(R.id.spinner_main_shelf);
+            shelf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    String shelf_cur = shelf.getSelectedItem().toString();
+                    if(shelf_cur.equals("All")) filterDataSet = localDataSet;
+                    else{
+                        ArrayList<book_item>localDataList = new ArrayList<>();
+                        for (int j = 0; j < localDataSet.size(); j++) {
+                            if(shelf_cur.equals(localDataSet.get(j).getShelf()))
+                                localDataList.add(localDataSet.get(j));
+                        }
+                        filterDataSet = localDataList;
+                    }
+                    notifyDataSetChanged();
+                    OriDataSet = filterDataSet;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+
+//            filterDataSet = localDataSet;
+
         }
 
         // Create new views (invoked by the layout manager)
@@ -348,26 +376,34 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Filter getFilter() {
-
             return new Filter() {
+                @SuppressLint("NotifyDataSetChanged")
                 @Override
                 protected FilterResults performFiltering(CharSequence charSequence) {
-                    String name_cur = charSequence.toString();
-                    if(name_cur.isEmpty()) filterDataSet = localDataSet;
-                    else{
-                        ArrayList<book_item> filterDataList = new ArrayList<>();
 
-                        for (int i = 0; i < localDataSet.size(); i++) {
-                            if(localDataSet.get(i).getName().contains(name_cur))
-                                filterDataList.add(localDataSet.get(i));
+                    String name_cur = charSequence.toString();
+                    if(name_cur.isEmpty())
+                    {
+                        filterDataSet = OriDataSet;
+                    }
+                    else{
+                        ArrayList<book_item> searchDataList = new ArrayList<>();
+
+                        for (int i = 0; i < filterDataSet.size(); i++) {
+                            if(filterDataSet.get(i).getName().contains(name_cur))
+                                searchDataList.add(filterDataSet.get(i));
                         }
-                        filterDataSet = filterDataList;
+                        filterDataSet = searchDataList;
                     }
 
-                    FilterResults filterResults = new FilterResults();
-                    filterResults.values = filterDataSet;
-                    return filterResults;
+
+                    FilterResults searchResults = new FilterResults();
+                    searchResults.values = filterDataSet;
+                    return searchResults;
                 }
+
+
+
 
                 @SuppressLint("NotifyDataSetChanged")
                 @Override
