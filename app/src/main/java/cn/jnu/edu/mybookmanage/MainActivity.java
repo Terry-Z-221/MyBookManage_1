@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.location.GnssAntennaInfo;
 import android.os.Bundle;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import cn.jnu.edu.mybookmanage.data_Book.Data_Saver;
 import cn.jnu.edu.mybookmanage.data_Book.book_item;
 
 public class MainActivity extends AppCompatActivity {
@@ -77,9 +80,10 @@ public class MainActivity extends AppCompatActivity {
                         String shelf = bundle.getString("shelf");
                         String notes = bundle.getString("notes");
                         String tags = bundle.getString("tags");
-                        book_items.add(0, new book_item(name, author, translator, publisher, pubdate, isbn,
+                        book_items.add(position, new book_item(name, author, translator, publisher, pubdate, isbn,
                                 reading_status, shelf, notes, tags, R.drawable.ic_book));
-                        mainRecycleViewAdapter.notifyItemInserted(0);
+                        if(tags.equals("save")) new Data_Saver().Save(this,book_items);
+                        mainRecycleViewAdapter.notifyItemInserted(position);
                     }
                 }
                     });
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                             {
                                 assert intent != null;
                                 Bundle bundle = intent.getExtras();
-                                int posiotion = bundle.getInt("position");
+                                int position = bundle.getInt("position");
                                 String name = bundle.getString("name");
                                 String author = bundle.getString("author");
                                 String translator = bundle.getString("translator");
@@ -104,19 +108,19 @@ public class MainActivity extends AppCompatActivity {
                                 String shelf = bundle.getString("shelf");
                                 String notes = bundle.getString("notes");
                                 String tags = bundle.getString("tags");
-                                book_items.get(posiotion).setName(name);
-                                book_items.get(posiotion).setAuthor(author);
-                                book_items.get(posiotion).setTranslator(translator);
-                                book_items.get(posiotion).setPublisher(publisher);
-                                book_items.get(posiotion).setPubdate(pubdate);
-                                book_items.get(posiotion).setISBN(isbn);
-                                book_items.get(posiotion).setNotes(notes);
-                                book_items.get(posiotion).setTags(tags);
-                                book_items.get(posiotion).setShelf(shelf);
-                                book_items.get(posiotion).setReading_status(reading_status);
+                                book_items.get(position).setName(name);
+                                book_items.get(position).setAuthor(author);
+                                book_items.get(position).setTranslator(translator);
+                                book_items.get(position).setPublisher(publisher);
+                                book_items.get(position).setPubdate(pubdate);
+                                book_items.get(position).setISBN(isbn);
+                                book_items.get(position).setNotes(notes);
+                                book_items.get(position).setTags(tags);
+                                book_items.get(position).setShelf(shelf);
+                                book_items.get(position).setReading_status(reading_status);
 
-
-                                mainRecycleViewAdapter.notifyItemChanged(posiotion);
+                                new Data_Saver().Save(this,book_items);
+                                mainRecycleViewAdapter.notifyItemChanged(position);
                             }
                         }
                     });
@@ -128,18 +132,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EditText search = findViewById(R.id.edit_search);
         drawerLayout_main = findViewById(R.id.drawer_layout);
         Toolbar toolbar_main = findViewById(R.id.toolbar_main);
-        ImageButton btn_menu = findViewById(R.id.btn_menu_main);
 
+        ImageButton btn_menu = findViewById(R.id.btn_menu_main);
         btn_menu.setOnClickListener(view -> drawerLayout_main.openDrawer(GravityCompat.START));
 
-
         Button btn_add = findViewById(R.id.btn_add); // 主页面添加书籍信息按钮
-
         btn_add.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this,AddBookActivity.class); // 跳转页面至添加信息页面
             add_data_launcher.launch(intent);
+        });
+
+        final NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(0).setChecked(true);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.toString())
+            {
+                case "Books":
+                    Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+            item.setCheckable(false);
+            item.setChecked(false);
+            drawerLayout_main.close();
+            return false;
         });
 
         RecyclerView recyclerView_item = findViewById(R.id.recycleview_item_main);
@@ -148,19 +167,21 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView_item.setLayoutManager(linearLayoutManager);
 
-        book_items = new ArrayList<>();
+        Data_Saver data_saver = new Data_Saver();
+        book_items = data_saver.Load(this);
 
-        book_items.add(0,new book_item("白夜行","东野圭吾","刘姿君","南海出版公司","2008.09",
-                "9787544242516","Reading","Novel","无","日系推理",R.drawable.ic_book_1));
 
-        book_items.add(1,new book_item("计算机网络","谢希仁","无","电子工业出版社","2021.06",
-                "9787121411748","To be read","Textbook","无","计算机教材",R.drawable.ic_book_2));
+        if(book_items.size() == 0)
+        {
+            book_items.add(0,new book_item("白夜行","东野圭吾","刘姿君","南海出版公司","2008.09",
+                    "9787544242516","Reading","Novel","无","日系推理",R.drawable.ic_book_1));
+
+            book_items.add(1,new book_item("计算机网络","谢希仁","无","电子工业出版社","2021.06",
+                    "9787121411748","To be read","Textbook","无","计算机教材",R.drawable.ic_book_2));
+        }
 
         mainRecycleViewAdapter = new MainRecycleViewAdapter(book_items);
         recyclerView_item.setAdapter(mainRecycleViewAdapter);
-
-        EditText search = findViewById(R.id.edit_search);
-
 
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -189,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case MENU_ID_ADD:
                 Intent intent_add = new Intent(this,AddBookActivity.class);
+                intent_add.putExtra("position",item.getOrder());
                 add_data_launcher.launch(intent_add);
                 break;
             case MENU_ID_UPDATE:
@@ -212,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle(R.string.MENU_Confirmation).setMessage(R.string.MENU_delete_to_sure)
                         .setNegativeButton(R.string.YES, (dialogInterface, i) -> {
                             book_items.remove(item.getOrder());
+                            new Data_Saver().Save(MainActivity.this,book_items);
                             mainRecycleViewAdapter.notifyItemRemoved(item.getOrder());
                         }).setPositiveButton(R.string.NO, (dialogInterface, i) -> {
                         }).create();

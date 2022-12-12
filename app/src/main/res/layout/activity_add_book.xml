@@ -52,6 +52,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="@string/Book_name">
                 </TextView>
 
@@ -74,6 +75,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="@string/Book_Author">
                 </TextView>
 
@@ -97,6 +99,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="@string/Book_Translator">
                 </TextView>
 
@@ -120,6 +123,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="@string/Book_Publisher">
                 </TextView>
 
@@ -142,6 +146,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="@string/Book_PubDate"
                     >
                 </TextView>
@@ -165,6 +170,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="@string/Book_ISBN">
                 </TextView>
 
@@ -191,6 +197,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="@string/Book_detail"
             android:textSize="30sp">
         </TextView>
@@ -215,6 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:text="@string/decide_the_reading_status"
                 android:textSize="15sp">
             </TextView>
@@ -251,6 +259,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:text="@string/please_choose_a_shilf"
                 android:textSize="15sp">
             </TextView>
@@ -286,6 +295,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:text="@string/Book_text_notes"
                 android:textSize="15sp">
             </TextView>
@@ -319,6 +329,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:text="@string/Book_text_tags"
                 android:textSize="15sp">
             </TextView>

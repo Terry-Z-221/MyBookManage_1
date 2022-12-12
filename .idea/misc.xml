@@ -11,6 +11,8 @@
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/ic_baseline_label_24.xml" value="0.245" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/ic_book.xml" value="0.1365" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/ic_logo.xml" value="0.245" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/scan.xml" value="0.245" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/settings.xml" value="0.245" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/spinner_selector.xml" value="0.245" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/drawable/spinner_shape.xml" value="0.245" />
@@ -27,6 +29,8 @@
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/slide_menu_header.xml" value="0.26222826086956524" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/layout/toolbar_main.xml" value="0.26222826086956524" />
         <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/menu/slide_menu.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.245" />
+        <entry key="..\:/AndroidTool/AndroidProject/MyBookManage/app/src/main/res/xml/root_preferences.xml" value="0.26222826086956524" />
       </map>
     </option>
   </component>

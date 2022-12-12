@@ -2,7 +2,9 @@ package cn.jnu.edu.mybookmanage.data_Book;
 
 import android.widget.ImageView;
 
-public class book_item {
+import java.io.Serializable;
+
+public class book_item implements Serializable {
 
 //    private ImageView Cover;
     private String Name;

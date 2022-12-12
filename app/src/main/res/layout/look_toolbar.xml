@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
+        android:textStyle="bold"
         android:text="@string/book_details"
         android:textSize="20sp">
     </TextView>

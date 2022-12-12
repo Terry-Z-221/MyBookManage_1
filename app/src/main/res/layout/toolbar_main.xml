@@ -7,7 +7,7 @@
 
     <ImageButton
         android:id="@+id/btn_menu_main"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_baseline_bookshelf_24"
         android:backgroundTint="@color/pink"
@@ -20,11 +20,12 @@
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
         android:entries="@array/Book_shelf_main"
+        android:dropDownSelector="@color/gray"
         style="@style/Widget.AppCompat.Spinner.Underlined">
     </Spinner>
 
     <EditText
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/edit_search"
@@ -33,5 +34,14 @@
         android:hint="@string/search"
         android:textStyle="bold">
     </EditText>
+
+    <ImageButton
+        android:id="@+id/btn_scan"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/scan"
+        android:background="@color/pink">
+    </ImageButton>
 
 </androidx.appcompat.widget.Toolbar>
