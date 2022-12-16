@@ -1,42 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/book_detail_activity"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".BookDetailLookActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_book_detail"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookDetailFragment">
 
-    <include layout="@layout/look_toolbar" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout_bookdetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager2_bookdetail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.viewpager2.widget.ViewPager2>
-
-<!--
     <ImageView
-        android:id="@+id/Book_cover_look"
-        android:layout_marginTop="10dp"
-        android:layout_width="100dp"
-        android:layout_height="140dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/todo">
+    android:id="@+id/Book_cover_look"
+    android:layout_marginTop="10dp"
+    android:layout_width="100dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center"
+    android:contentDescription="@string/todo">
     </ImageView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="70dp">
 
         <TextView
@@ -284,14 +268,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textStyle="bold"
-            android:text="@string/bi_ji"
+            android:text="@string/链接"
             android:textSize="20sp"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="112dp"
             tools:layout_editor_absoluteY="0dp" />
 
         <TextView
-            android:id="@+id/Book_notes_look"
+            android:id="@+id/Book_link_look"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -332,6 +316,5 @@
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
--->
 
 </LinearLayout>

@@ -1,23 +1,17 @@
 package cn.jnu.edu.mybookmanage;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.location.GnssAntennaInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -35,16 +28,12 @@ import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import cn.jnu.edu.mybookmanage.data_Book.Data_Saver;
 import cn.jnu.edu.mybookmanage.data_Book.book_item;
@@ -78,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
                         String isbn = bundle.getString("isbn");
                         String reading_status = bundle.getString("reading_status");
                         String shelf = bundle.getString("shelf");
-                        String notes = bundle.getString("notes");
+                        String link = bundle.getString("link");
                         String tags = bundle.getString("tags");
                         book_items.add(position, new book_item(name, author, translator, publisher, pubdate, isbn,
-                                reading_status, shelf, notes, tags, R.drawable.ic_book));
+                                reading_status, shelf, link, tags, R.drawable.ic_book));
                         if(tags.equals("save")) new Data_Saver().Save(this,book_items);
                         mainRecycleViewAdapter.notifyItemInserted(position);
                     }
@@ -106,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                 String isbn = bundle.getString("isbn");
                                 String reading_status = bundle.getString("reading_status");
                                 String shelf = bundle.getString("shelf");
-                                String notes = bundle.getString("notes");
+                                String link = bundle.getString("link");
                                 String tags = bundle.getString("tags");
                                 book_items.get(position).setName(name);
                                 book_items.get(position).setAuthor(author);
@@ -114,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                                 book_items.get(position).setPublisher(publisher);
                                 book_items.get(position).setPubdate(pubdate);
                                 book_items.get(position).setISBN(isbn);
-                                book_items.get(position).setNotes(notes);
+                                book_items.get(position).setLink(link);
                                 book_items.get(position).setTags(tags);
                                 book_items.get(position).setShelf(shelf);
                                 book_items.get(position).setReading_status(reading_status);
@@ -134,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
         EditText search = findViewById(R.id.edit_search);
         drawerLayout_main = findViewById(R.id.drawer_layout);
-        Toolbar toolbar_main = findViewById(R.id.toolbar_main);
 
         ImageButton btn_menu = findViewById(R.id.btn_menu_main);
         btn_menu.setOnClickListener(view -> drawerLayout_main.openDrawer(GravityCompat.START));
@@ -145,21 +133,23 @@ public class MainActivity extends AppCompatActivity {
             add_data_launcher.launch(intent);
         });
 
-        final NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(0).setChecked(true);
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.toString())
-            {
-                case "Books":
-                    Intent intent = new Intent(MainActivity.this,MainActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-            item.setCheckable(false);
-            item.setChecked(false);
-            drawerLayout_main.close();
-            return false;
-        });
+//        final NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+//        navigationView.getMenu().getItem(0).setChecked(true);
+//        navigationView.setNavigationItemSelectedListener(item -> {
+//            switch (item.toString())
+//            {
+//                case "Books":
+//                    Intent intent = new Intent(MainActivity.this,MainActivity.class);
+//                    startActivity(intent);
+//                    break;
+//                case "To be read":
+//
+//            }
+//            item.setCheckable(false);
+//            item.setChecked(false);
+//            drawerLayout_main.close();
+//            return false;
+//        });
 
         RecyclerView recyclerView_item = findViewById(R.id.recycleview_item_main);
 
@@ -174,10 +164,10 @@ public class MainActivity extends AppCompatActivity {
         if(book_items.size() == 0)
         {
             book_items.add(0,new book_item("白夜行","东野圭吾","刘姿君","南海出版公司","2008.09",
-                    "9787544242516","Reading","Novel","无","日系推理",R.drawable.ic_book_1));
+                    "9787544242516","Reading","Novel","https://book.douban.com/subject/10554308/","日系推理",R.drawable.ic_book_1));
 
             book_items.add(1,new book_item("计算机网络","谢希仁","无","电子工业出版社","2021.06",
-                    "9787121411748","To be read","Textbook","无","计算机教材",R.drawable.ic_book_2));
+                    "9787121411748","To be read","Textbook","https://book.douban.com/subject/35498120/","计算机教材",R.drawable.ic_book_2));
         }
 
         mainRecycleViewAdapter = new MainRecycleViewAdapter(book_items);
@@ -225,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 intent_update.putExtra("isbn",book_items.get(item.getOrder()).getISBN());
                 intent_update.putExtra("reading_status",book_items.get(item.getOrder()).getReading_status());
                 intent_update.putExtra("shelf",book_items.get(item.getOrder()).getShelf());
-                intent_update.putExtra("notes",book_items.get(item.getOrder()).getNotes());
+                intent_update.putExtra("link",book_items.get(item.getOrder()).getLink());
                 intent_update.putExtra("tags",book_items.get(item.getOrder()).getTags());
                 update_data_launcher.launch(intent_update);
                 break;
@@ -248,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
     public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> implements Filterable {
 
         private final ArrayList<book_item> localDataSet;
-        private ArrayList<book_item> filterDataSet;
+        private ArrayList<book_item> filterDataSet = new ArrayList<>();
         private ArrayList<book_item> OriDataSet;
 
 //        Spinner shelf_main = findViewById(R.id.spinner_main_shelf);
@@ -287,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                     intent_look.putExtra("isbn",filterDataSet.get(getAdapterPosition()).getISBN());
                     intent_look.putExtra("reading_status",filterDataSet.get(getAdapterPosition()).getReading_status());
                     intent_look.putExtra("shelf",filterDataSet.get(getAdapterPosition()).getShelf());
-                    intent_look.putExtra("notes",filterDataSet.get(getAdapterPosition()).getNotes());
+                    intent_look.putExtra("link",filterDataSet.get(getAdapterPosition()).getLink());
                     intent_look.putExtra("tags",filterDataSet.get(getAdapterPosition()).getTags());
                     startActivity(intent_look);
                 });
@@ -334,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
 
             notifyDataSetChanged();
             localDataSet = dataSet;
-            filterDataSet = localDataSet;
+            if(filterDataSet.size() == 0) filterDataSet = localDataSet;
             Spinner shelf = findViewById(R.id.spinner_main_shelf);
             shelf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @SuppressLint("NotifyDataSetChanged")
@@ -354,13 +344,48 @@ public class MainActivity extends AppCompatActivity {
                     OriDataSet = filterDataSet;
                 }
 
+
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
 
                 }
             });
 
+            final NavigationView navigationView = findViewById(R.id.nav_view);
 
+            navigationView.getMenu().getItem(0).setChecked(true);
+            navigationView.setNavigationItemSelectedListener(item -> {
+
+                switch (item.toString()) {
+                    case "Books":
+                        break;
+
+                    case"豆瓣读书":
+                        Intent intent_1 = new Intent(MainActivity.this,MoreActivity.class);
+                        intent_1.putExtra("url","https://book.douban.com/");
+                        startActivity(intent_1);
+                        break;
+
+                    case"读书网":
+                        Intent intent_2 = new Intent(MainActivity.this,MoreActivity.class);
+                        intent_2.putExtra("url","https://www.dushu.com/");
+                        startActivity(intent_2);
+                        break;
+
+                    case "百度":
+                        Intent intent_3 = new Intent(MainActivity.this,MoreActivity.class);
+                        intent_3.putExtra("url","https://www.baidu.com/");
+                        startActivity(intent_3);
+                        break;
+
+                    case"About us":
+                        Intent intent_4 = new Intent(MainActivity.this,AboutActivity.class);
+                        startActivity(intent_4);
+                }
+                drawerLayout_main.close();
+                OriDataSet = filterDataSet;
+                return false;
+            });
 //            filterDataSet = localDataSet;
 
         }
@@ -412,9 +437,9 @@ public class MainActivity extends AppCompatActivity {
                     else{
                         ArrayList<book_item> searchDataList = new ArrayList<>();
 
-                        for (int i = 0; i < filterDataSet.size(); i++) {
-                            if(filterDataSet.get(i).getName().contains(name_cur))
-                                searchDataList.add(filterDataSet.get(i));
+                        for (int i = 0; i < OriDataSet.size(); i++) {
+                            if(OriDataSet.get(i).getName().contains(name_cur))
+                                searchDataList.add(OriDataSet.get(i));
                         }
                         filterDataSet = searchDataList;
                     }
@@ -424,8 +449,6 @@ public class MainActivity extends AppCompatActivity {
                     searchResults.values = filterDataSet;
                     return searchResults;
                 }
-
-
 
 
                 @SuppressLint("NotifyDataSetChanged")

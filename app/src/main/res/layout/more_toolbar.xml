@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_edit_book_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:background="@color/pink">
+
+    <ImageButton
+        android:id="@+id/btn_back_more"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:backgroundTint="@color/pink"
+        android:contentDescription="@string/todo">
+    </ImageButton>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:textStyle="bold"
+        android:text="@string/了解更多"
+        android:textSize="20sp">
+    </TextView>
+
+
+</LinearLayout>

@@ -18,14 +18,14 @@
     <string name="Book_detail">DETAILS：</string>
     <string name="Book_cover">Book-cover</string>
     <string name="Book_text_shelf">Please choose a shilf</string>
-    <string name="Book_text_notes">Here you can add book notes</string>
+    <string name="Book_text_link">Here you can add book link</string>
     <string name="Book_text_tags">Here you can add book tags</string>
     <string name="save">Save</string>
     <string name="edit_book_details">Edit book details</string>
     <string name="all">All</string>
     <string name="please_choose_a_shilf">Please choose a shilf</string>
     <string name="decide_the_reading_status">Decide the reading status</string>
-    <string name="notes">notes</string>
+    <string name="link">link</string>
     <string name="tags">tags</string>
 
     <string-array name="Reading_status_edit">
@@ -64,16 +64,13 @@
     <string name="ISBN_ma">ISBN码：</string>
     <string name="yue_du_zhuang_tai">阅读状态：</string>
     <string name="shu_jia">所属书架：</string>
-    <string name="bi_ji">图书笔记：</string>
+    <string name="链接">图书链接：</string>
     <string name="biao_qian">图书标签：</string>
     <string name="books">Books</string>
     <string name="search">Search</string>
-    <string name="labels">Labels</string>
-    <string name="law">Law</string>
-    <string name="create_new_label">Create new label</string>
     <string name="other">Other</string>
     <string name="settings">Settings</string>
-    <string name="about">About</string>
+    <string name="about">About us</string>
     <string name="user_name">Terry</string>
     <string name="user_email">974378437@qq.com</string>
     <!-- Preference Titles -->
@@ -90,5 +87,16 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="百度">百度</string>
+    <string name="了解更多">了解更多</string>
+    <string name="豆瓣读书">豆瓣读书</string>
+    <string name="读书网">读书网</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="图书信息">图书信息</string>
+    <string name="豆瓣相关信息">豆瓣相关信息</string>
+    <string name="appname">Book Manage</string>
+    <string name="version_1_0_21">Version 1.0.21</string>
+    <string name="copyright">Copyright © 2022-2122 Terry.All Rights Reserved.</string>
 
 </resources>

@@ -1,7 +1,5 @@
 package cn.jnu.edu.mybookmanage.data_Book;
 
-import android.widget.ImageView;
-
 import java.io.Serializable;
 
 public class book_item implements Serializable {
@@ -15,13 +13,13 @@ public class book_item implements Serializable {
     private String ISBN;
     private String Reading_status;
     private String Shelf;
-    private String Notes;
+    private String Link;
     private String Tags;
     private int resId;
 
 
     public book_item(String name, String author, String translator, String publisher, String pubdate, String isbn,
-                     String read_status, String shelf, String notes, String tags, int resId) {
+                     String read_status, String shelf, String link, String tags, int resId) {
 
 //        Cover = cover;
         Name = name;
@@ -32,7 +30,7 @@ public class book_item implements Serializable {
         ISBN = isbn;
         Reading_status = read_status;
         Shelf = shelf;
-        Notes = notes;
+        Link = link;
         Tags = tags;
         this.resId = resId;
     }
@@ -93,9 +91,10 @@ public class book_item implements Serializable {
 
     public void setShelf(String shelf) {Shelf = shelf;}
 
-    public String getNotes() {return Notes;}
+    public String getLink() {return Link;}
 
-    public void setNotes(String notes) {Notes = notes;}
+    public void setLink(String link) {
+        Link = link;}
 
     public String getTags() {return Tags;}
 

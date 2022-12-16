@@ -6,32 +6,30 @@
             android:id="@+id/menu_books"
             android:icon="@drawable/ic_baseline_bookshelf_24"
             android:title="@string/books" />
-        <item
-            android:id="@+id/menu_search"
-            android:icon="@drawable/search"
-            android:title="@string/search" />
     </group>
 
-    <item android:title="@string/labels">
+    <item android:title="@string/了解更多">
         <menu>
             <item
-                android:id="@+id/menu_labels"
-                android:icon="@drawable/ic_baseline_label_24"
-                android:title="@string/law" />
+                android:id="@+id/menu_To_be_read"
+                android:title="@string/豆瓣读书"
+                android:icon="@drawable/ic_baseline_label_24">
+            </item>
             <item
-                android:id="@+id/menu_new_label"
-                android:icon="@drawable/add"
-                android:title="@string/create_new_label" />
+                android:id="@+id/menu_Reading"
+                android:icon="@drawable/ic_baseline_label_24"
+                android:title="@string/读书网" />
+            <item
+                android:id="@+id/menu_Finish_reading"
+                android:icon="@drawable/ic_baseline_label_24"
+                android:title="@string/百度" />
         </menu>
     </item>
 
 
+
     <item android:title="@string/other">
         <menu>
-            <item
-                android:id="@+id/menu_settings"
-                android:icon="@drawable/settings"
-                android:title="@string/settings" />
             <item
                 android:id="@+id/menu_about"
                 android:icon="@drawable/about"
