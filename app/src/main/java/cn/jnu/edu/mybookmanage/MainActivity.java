@@ -168,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
 
             book_items.add(1,new book_item("计算机网络","谢希仁","无","电子工业出版社","2021.06",
                     "9787121411748","To be read","Textbook","https://book.douban.com/subject/35498120/","计算机教材",R.drawable.ic_book_2));
+
+            book_items.add(2,new book_item("海边的卡夫卡","村上春树","林少华","上海译文出版社","2003.4",
+                    "9787532734191","Finish reading","Novel","https://book.douban.com/subject/1059419/","日本小说",R.drawable.ic_book_1));
         }
 
         mainRecycleViewAdapter = new MainRecycleViewAdapter(book_items);
@@ -383,7 +386,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent_4);
                 }
                 drawerLayout_main.close();
-                OriDataSet = filterDataSet;
                 return false;
             });
 //            filterDataSet = localDataSet;
