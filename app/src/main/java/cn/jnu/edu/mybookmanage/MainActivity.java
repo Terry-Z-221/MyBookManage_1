@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         String shelf = bundle.getString("shelf");
                         String link = bundle.getString("link");
                         String tags = bundle.getString("tags");
-                        book_items.add(position, new book_item(name, author, translator, publisher, pubdate, isbn,
+                        book_items.add(0, new book_item(name, author, translator, publisher, pubdate, isbn,
                                 reading_status, shelf, link, tags, R.drawable.ic_book));
                         if(tags.equals("save")) new Data_Saver().Save(this,book_items);
                         mainRecycleViewAdapter.notifyItemInserted(position);
